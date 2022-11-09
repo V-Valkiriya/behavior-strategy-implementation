@@ -12,8 +12,28 @@
  */
 
 // -------- your solutions --------
+function mySolution (text = '', lowerCase = true) {
+  if (typeof text !== 'string') {
+    throw new TypeError();
+  }
+  if (typeof lowerCase !== 'boolean') {
+    throw new TypeError();
+  }
+  let result = '';
+  for (let i = text.length - 1; i >= 0; i--) {
+    result += text[i];
+  } 
+  if (lowerCase === true) {
+    return result.toLowerCase();
+  }
+  if (lowerCase === false) {
+    return result.toUpperCase();
+  }
+}
 
-for (const solution of [secretSolution]) {
+
+// eslint-disable-next-line no-restricted-syntax
+for (const solution of [secretSolution, mySolution]) {
   describe(
     solution.name + ': reverses a string then sets to lower or upper case',
     () => {
@@ -28,25 +48,57 @@ for (const solution of [secretSolution]) {
       // write the tests indicated by the comments
       describe('when set to lower case', () => {
         // when the text is an empty string
-        it(_, () => {
-          expect(solution(_, _)).toEqual(_);
+        it('first parameter an empty string', () => {
+          expect(solution('', true)).toEqual('');
         });
         // when the text is all upper case
+        it('firs parameter is string with all upper case letters, second parameter is true', () => {
+          expect(solution('HELLO', true)).toEqual('olleh');
+        });
         // when the text is all lower case
+        it('first parameter is a string with all lower case letters, second parameter is true', () => {
+          expect(solution('hello', true)).toEqual('olleh');
+        });
         // when the text is mixed upper and lower case
+        it('first parameter is a string with mixed lower case and upper case letters, second parameter is true', () => {
+          expect(solution('HelLo', true)).toEqual('olleh');
+        });
         // when the text contains punctuation
+        it('first parameter is a string with punctuation, second parameter is true', () => {
+          expect(solution('Hello, sunny!', true)).toEqual('!ynnus ,olleh');
+        });
         // when the text contains numbers
+        it('first parameter is a string with numbers, second parameter is true', () => {
+          expect(solution('Hello777', true)).toEqual('777olleh');
+        });
       });
       describe('when set to upper case', () => {
         // when the text is an empty string
+        it('first parameter is an empty string, second parameter is false', () => {
+          expect(solution('', false)).toEqual('');
+        });
         // when the text is all upper case
+        it('first parameter is a string with all upper case letters, second parameter is false', () => {
+          expect(solution('HELLO', false)).toEqual('OLLEH');
+        });
         // when the text is all lower case
+        it('first parameter is a string with all lower case letters, second parameter is false', () => {
+          expect(solution('hello', false)).toEqual('OLLEH');
+        });
         // when the text is mixed upper and lower case
+        it('first parameter is a string with mixed upper case and lower case lettrs, second parameter is false', () => {
+          expect(solution('HelLO', false)).toEqual('OLLEH');
+        });
         // when the text contains punctuation
+        it('first parameter with punctuation, second parameter false', () => {
+          expect(solution('Hello!!', false)).toEqual('!!OLLEH');
+        });
         // when the text contains numbers
+        it('first parameter with numbers, second parameter false', () =>  {
+          expect(solution('Hello77', false)).toEqual('77OLLEH');
+        });
       });
-    }
-  );
+    });
 }
 
 // minified solution for testing your tests

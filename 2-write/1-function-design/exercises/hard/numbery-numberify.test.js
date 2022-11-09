@@ -13,11 +13,44 @@
  */
 
 // -------- your solutions --------
+function mySolution (array) {
+  if (!Array.isArray(array)) {
+    throw new TypeError('arrayOfStrings is not an array');
+  }
+  const value = array.some((array) => typeof array !== 'string');
+  if (value) {
+    throw new TypeError('arrayOfStrings contains non-strings');
+  }
 
-for (const solution of [secretSolution]) {
-  describe(solution.name + ': _', () => {
-    describe('_', () => {
-      it('_', () => {});
+  const newArr = array.map((array) => Number(array));
+  const result = newArr.filter((array) => !Number.isNaN(array));
+  return result;
+}
+
+// eslint-disable-next-line no-restricted-syntax
+for (const solution of [mySolution, secretSolution]) {
+  describe(solution.name + ': takes an array of strings and returns a new array of numbers', () => {
+    describe('strings', () => {
+      it('only word strings', () => {
+        expect(solution(['dog', 'cat', 'bird'])).toEqual([]);
+      });
+      it('word and number strings', () => {
+        expect(solution(['dog', '1', 'cat', '3.8'])).toEqual([1, 3.8]);
+      });
+      it('empty strings', () => {
+        expect(solution([])).toEqual([]);
+      });
+      it('only number strings', () => {
+        expect(solution(['7', '1', '0.6', '3.8'])).toEqual([7, 1, 0.6, 3.8]);
+      });
+    });
+    describe('fault', () => {
+      it('not array', () => {
+        expect(() => solution('dog, cat, bird')).toThrow(TypeError('arrayOfStrings is not an array'));
+      });
+      it('word and number strings', () => {
+        expect(() => solution(['dog', 1, 'cat', 3.8])).toThrow(TypeError('arrayOfStrings contains non-strings'));
+      });
     });
   });
 }

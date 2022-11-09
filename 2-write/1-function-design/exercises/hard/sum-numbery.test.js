@@ -19,20 +19,32 @@ const mapFilterReduce = (arr) => {
   const castToNumber = (entry) => Number(entry);
 
   // fill in the array methods and pass in the correct logic
-  const sumOfNumberies = arr._(_)._(_)._(_, _);
+  const sumOfNumberies = arr.map(castToNumber).filter(isNotNaN).reduce(sumNumbers, 0);
 
   return sumOfNumberies;
 };
 
 // -------- your solutions --------
 
+// eslint-disable-next-line no-restricted-syntax
 for (const solution of [
   secretSolution,
-  // mapFilterReduce,
+  mapFilterReduce,
 ]) {
-  describe(solution.name + ': _', () => {
-    describe('_', () => {
-      it('_', () => {});
+  describe(solution.name + ': sums all numbery strings in an array of strings', () => {
+    describe('different strings', () => {
+      it('empty string', () => {
+        expect(solution([])).toEqual(0);
+      });
+      it('one word string', () => {
+        expect(solution(['cat'])).toEqual(0);
+      });
+      it('word and number strings', () => {
+        expect(solution(['cat', 'sun', '17', '3.5'])).toEqual(20.5);
+      });
+      it('number strings', () => {
+        expect(solution(['5', '3', '2.8'])).toEqual(10.8);
+      });
     });
   });
 }

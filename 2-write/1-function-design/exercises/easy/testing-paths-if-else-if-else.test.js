@@ -13,33 +13,47 @@
  */
 
 // -------- your solutions --------
+function mySolution (val1, val2) {
+  if (val1 === val2) {
+    return 'strictly equal';
+  } if (typeof val1 === typeof val2) {
+    return 'same type';
+  } 
+    return 'totally different';
+}
 
-for (const solution of [secretSolution]) {
+// eslint-disable-next-line no-restricted-syntax
+for (const solution of [secretSolution, mySolution]) {
+  // eslint-disable-next-line no-loop-func
   describe(solution.name + ': determines how similar two values are', () => {
     describe('when values are strictly equal', () => {
       it('two identical strings -> "strictly equal"', () => {
-        expect(solution('hello', 'hello')).toEqual(_);
+        expect(solution('hello', 'hello')).toEqual('strictly equal');
       });
       it('two identical numbers -> "strictly equal"', () => {
-        // 1, 1.0
+        expect(solution(1, 1.0)).toEqual('strictly equal');
       });
-      it('two identical booleans -> "strictly equal"', () => {});
+      it('two identical booleans -> "strictly equal"', () => {
+        expect(solution(true, true)).toEqual('strictly equal');
+      });
     });
     describe('when values have the same type', () => {
       it('two different strings -> "same type"', () => {
-        expect(_).toEqual('same type');
+        expect(solution('hello', 'cat')).toEqual('same type');
       });
       it('two different numbers -> "same type"', () => {
-        expect(_).toEqual(_);
+        expect(solution(1, 7)).toEqual('same type');
       });
-      it('two different booleans -> "same type"', () => {});
+      it('two different booleans -> "same type"', () => {
+        expect(solution(true, false)).toEqual('same type');
+      });
     });
     describe('when values are nothing alike', () => {
       it('values that are obviously different', () => {
-        _(_(null, 4))._(_);
+        expect(solution(null, 4)).toEqual('totally different');
       });
       it('values that can be confusing', () => {
-        // "4" and 4
+        expect(solution('4', 4)).toEqual('totally different'); // "4" and 4
       });
     });
   });
