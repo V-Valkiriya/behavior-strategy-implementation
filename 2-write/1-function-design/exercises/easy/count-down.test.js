@@ -10,6 +10,9 @@
  */
 
 // -------- your solutions --------
+function mySolution (array) {
+  
+}
 
 for (const solution of [secretSolution]) {
   // the main test suite for the function
